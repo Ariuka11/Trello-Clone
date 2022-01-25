@@ -3,12 +3,9 @@ import React from "react";
 const Navbar = () => {
   return (
     <div className="navbar">
-      <a href="/">
-        <button>Create a new column</button>
-      </a>
-      <a href="">
-        <p>Ariunbold Oyungerel</p>
-      </a>
+      <button>Create a new column</button>
+
+      <p>Ariunbold Oyungerel</p>
     </div>
   );
 };
