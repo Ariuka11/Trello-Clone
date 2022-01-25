@@ -7,7 +7,7 @@ const Column = ({ column, tasks, index }) => {
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
         <div
-          className="task-container"
+          className="column"
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
@@ -17,15 +17,15 @@ const Column = ({ column, tasks, index }) => {
           <Droppable droppableId={column.id} type="task">
             {(provided, snapshot) => (
               <div
-                className="column"
+                className="task-container"
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                isDraggingOver={snapshot.isDraggingOver}
               >
                 {tasks.map((task, index) => (
                   <Task key={task.id} task={task} index={index} />
                 ))}
                 {provided.placeholder}
+                <button> + Add a card</button>
               </div>
             )}
           </Droppable>
