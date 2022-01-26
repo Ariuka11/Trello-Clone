@@ -17,6 +17,7 @@ const initialData = {
       content: "Cook dinner",
     },
   },
+  
   columns: {
     "column-1": {
       id: "column-1",

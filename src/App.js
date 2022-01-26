@@ -8,6 +8,99 @@ import initialData from "./data";
 const App = () => {
   const [data, setData] = useState(initialData);
 
+  const [input, setInput] = useState("");
+
+  const add = (text, columnId) => {
+    const newCardId = "task-5";
+    const newCard = {
+      id: newCardId,
+      content: text,
+    };
+
+    const list = data.columns[columnId];
+    list.taskIds = [...data.columns[columnId].taskIds, newCardId];
+
+    const newState = {
+      ...data,
+      columns: {
+        ...data.columns,
+        [columnId]: list,
+      },
+      tasks: {
+        ...data.tasks,
+        [newCardId]: newCard,
+      },
+    };
+    setData(newState);
+  };
+
+  const addColumn = (newTitle) => {
+    const newId = "column-3";
+
+    const newColumn = {
+      id: newId,
+      title: newTitle,
+      taskIds: [],
+    };
+
+    const newState = {
+      ...data,
+      columnOrder: [...data.columnOrder, newId],
+      columns: {
+        ...data.columns,
+        [newId]: newColumn,
+      },
+    };
+    console.log(newState);
+    setData(newState);
+  };
+
+  const updateTitle = (newTitle, columnId) => {
+    const newState = {
+      ...data,
+      columns: {
+        ...data.columns,
+        [columnId]: {
+          ...data.columns[columnId],
+          title: newTitle,
+        },
+      },
+    };
+    setData(newState);
+    console.log(newState);
+  };
+
+  const deleteTask = (taskId, columnId) => {
+    const newData = Object.keys(data.tasks).reduce((acc, key) => {
+      if (key !== taskId) {
+        acc[key] = data.tasks[key];
+      }
+      return acc;
+    }, {});
+    const newArray = data.columns[columnId].taskIds.filter(
+      (id) => id !== taskId
+    );
+
+    const newState = {
+      ...data,
+      tasks: newData,
+      columns: {
+        ...data.columns,
+        [columnId]: {
+          ...data.columns[columnId],
+          taskIds: newArray,
+        },
+      },
+    };
+    console.log(newState);
+    setData(newState);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    deleteTask("task-1", "column-1");
+  };
+
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
 
@@ -117,6 +210,14 @@ const App = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button>Add</button>
+      </form>
     </div>
   );
 };
