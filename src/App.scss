@@ -2,119 +2,166 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: black;
-  caret-color: transparent;
-  font-size: large;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
     Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
 }
 .container {
   width: 100vw;
   height: 100vh;
-  background-image: url("../public/venice.jpg");
-  background-size: cover;
-  overflow-y: "auto";
-}
-.navbar {
-  min-height: 2rem;
-  width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: transparent;
-  a {
-    font-size: 1rem;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    padding: 0 2rem 0 2rem;
-  }
-  button {
-    background: lightcoral;
-    border: none;
-    text-align: center;
-    padding: 0.2rem;
-    border-radius: 12px;
-    font-size: 1rem;
-  }
-}
-
-.column-container {
-  display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
-}
-.column {
-  display: inline;
-  background-color: #ebecf0;
-  border-radius: 5px;
-  padding: 1rem;
-  max-width: 15rem;
-  min-width: 10rem;
-  height: fit-content;
-}
-.title {
-  font-size: 1.25rem;
-  color: black;
-}
-.task-container {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-.task::before {
-  content: "";
-  border: 3px rgba(228, 195, 9, 0.849) solid;
-  width: 20px;
-  color: rgba(228, 195, 9, 0.849);
-  border-radius: 12px;
-}
-.task {
-  color: #172b4d;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  display: flex;
   flex-direction: column;
-  padding: 0.5rem;
-  background-color: #fff;
-  margin: 0.5rem 0.2rem 0.5rem 0.2rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  border-radius: 5px;
-}
-.column button {
-  color: rgb(85, 83, 83);
-  font-size: 0.8rem;
-  padding: 2px;
-  margin-top: 5px;
-  border: none;
-  cursor: pointer;
-}
-button {
-  padding: 0.25rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  max-width: 15rem;
-  min-width: 10rem;
-  opacity: 0.5;
-}
-button:hover {
-  background: black;
-  color: lightblue;
-  cursor: pointer;
-}
-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 15rem;
-  min-width: 10rem;
-  input {
-    border: none;
-    border-radius: 5px;
-    :focus {
+  background-image: url(../public/venice.jpg);
+  background-size: cover;
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: transparentize($color: #000000, $amount: 0.2);
+    color: white;
+  }
+  .column-container {
+    color: white;
+    display: flex;
+    margin: 1rem;
+    gap: 2rem;
+    .column {
+      padding: 1rem;
+      border-radius: 5px;
+      background: transparentize($color: #a04d4d, $amount: 0.5);
+      min-width: 10rem;
+      max-width: 15rem;
+      .title {
+        padding: 0.25rem;
+        font-weight: 500;
+        margin-left: 0.25rem;
+      }
+      .task-container {
+        .task {
+          font-weight: 400;
+          font-size: small;
+          margin: 0.25rem;
+          padding: 0.5rem;
+          border-radius: 5px;
+          width: 100%;
+          background: transparentize($color: #558cb1, $amount: 0.5);
+          &:hover {
+            transform: scale(1.1);
+            transition: all 0.1s ease-in;
+          }
+        }
+      }
+      .taskInput {
+        form {
+          display: grid;
+          grid-auto-flow: column;
+          padding: 0.25rem;
+          input {
+            color: white;
+            background: transparentize($color: #4fa564, $amount: 0.5);
+            border-radius: 5px;
+            padding: 0.5rem;
+          }
+          button {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0.25rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: transparentize($color: #55b16c, $amount: 0.5);
+            color: white;
+            margin-left: 0.5rem;
+            &:hover {
+              background: transparentize($color: #5566b1, $amount: 0.5);
+              transform: scale(1.1);
+              transition: all 0.1s ease-in;
+            }
+          }
+        }
+        .taskButton {
+          font-size: 12px;
+          font-weight: 500;
+          width: 100%;
+          padding: 0.25rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          background: transparentize($color: #55b16c, $amount: 0.5);
+          color: white;
+          margin-left: 0.25rem;
+          &:hover {
+            background: transparentize($color: #5566b1, $amount: 0.5);
+            transform: scale(1.1);
+            transition: all 0.1s ease-in;
+          }
+        }
+      }
+    }
+  }
+  .columnInput {
+    form {
+      display: grid;
+      grid-auto-flow: column;
+      padding: 0.25rem;
+      -webkit-appearance: none;
+      input {
+        border-radius: 5px;
+        padding: 0.25rem;
+        color: white;
+        background: transparentize($color: #4fa564, $amount: 0.5);
+      }
+      button {
+        font-size: 12px;
+        font-weight: 500;
+        padding: 0.25rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background: transparentize($color: #55b16c, $amount: 0.5);
+        color: white;
+        margin-left: 0.5rem;
+        &:hover {
+          background: transparentize($color: #5566b1, $amount: 0.5);
+          transform: scale(1.1);
+          transition: all 0.1s ease-in;
+        }
+      }
+    }
+    .columnButton {
+      min-width: 10rem;
+      max-width: 15rem;
+      padding: 0.25rem;
       border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: transparentize($color: #55b16c, $amount: 0.5);
+      color: white;
+      font-weight: 500;
+      margin-left: 0.25rem;
+      &:hover {
+        background: transparentize($color: #5566b1, $amount: 0.5);
+        transform: scale(1.1);
+        transition: all 0.1s ease-in;
+      }
+    }
+  }
+  .titleInput {
+    form {
+      padding: 0.25rem;
+      border: #558cb1;
+      -webkit-appearance: none;
+      input {
+        color: white;
+        background: transparentize($color: #4fa564, $amount: 0.5);
+        border-radius: 5px;
+        padding: 0.25rem;
+        width: 105%;
+        &:focus {
+          border: 2px gold solid;
+        }
+      }
     }
   }
 }

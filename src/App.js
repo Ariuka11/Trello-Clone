@@ -5,14 +5,13 @@ import Column from "./components/Column";
 import Navbar from "./components/Navbar";
 import initialData from "./data";
 import { v4 as uuidv4 } from "uuid";
-import Input from "./components/Input";
+import ColumnInput from "./components/ColumnInput";
 
 const App = () => {
   const [data, setData] = useState(initialData);
-  const [input, setInput] = useState("");
-  const [open, setOpen] = useState(false);
 
-  const add = (text, columnId) => {
+  // Adding new task
+  const addTask = (text, columnId) => {
     const newCardId = uuidv4();
     const newCard = {
       id: newCardId,
@@ -35,7 +34,7 @@ const App = () => {
     };
     setData(newState);
   };
-
+  // Adding new Column
   const addColumn = (newTitle) => {
     const newId = uuidv4();
 
@@ -56,7 +55,7 @@ const App = () => {
     console.log(newState);
     setData(newState);
   };
-
+  //Updating Column Title
   const updateTitle = (newTitle, columnId) => {
     const newState = {
       ...data,
@@ -72,6 +71,7 @@ const App = () => {
     console.log(newState);
   };
 
+  // Removing task from the column
   const deleteTask = (taskId, columnId) => {
     const newData = Object.keys(data.tasks).reduce((acc, key) => {
       if (key !== taskId) {
@@ -110,6 +110,7 @@ const App = () => {
     ) {
       return;
     }
+    // Changing Column Order
     if (type === "column") {
       const newColumnOrder = Array.from(data.columnOrder);
       newColumnOrder.splice(source.index, 1);
@@ -122,6 +123,8 @@ const App = () => {
       setData(newData);
       return;
     }
+
+    // Changing task order in one column
     const home = data.columns[source.droppableId];
     const foreign = data.columns[destination.droppableId];
 
@@ -147,7 +150,7 @@ const App = () => {
       return;
     }
 
-    // moving from one list to another
+    // Moving task to another column
 
     const homeTaskIds = Array.from(home.taskIds);
     homeTaskIds.splice(source.index, 1);
@@ -172,12 +175,9 @@ const App = () => {
       },
     };
     setData(newData);
+    return;
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   addColumn(input);
-  //   setOpen(false);
-  // };
+
   return (
     <div className="container">
       <Navbar />
@@ -187,7 +187,7 @@ const App = () => {
           direction="horizontal"
           type="column"
         >
-          {(provided, snapshot) => (
+          {(provided) => (
             <div
               className="column-container"
               {...provided.droppableProps}
@@ -204,26 +204,14 @@ const App = () => {
                     column={column}
                     tasks={tasks}
                     index={index}
-                    add={add}
                     updateTitle={updateTitle}
+                    addTask={addTask}
                   />
                 );
               })}
-              {/* {open && (
-                <form onSubmit={handleSubmit}>
-                  <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                  />
-                  <button>Add</button>
-                </form>
-              )}
-              {!open && (
-                <button onClick={() => setOpen(true)}>Add a new list</button>
-              )} */}
-              <Input addColumn={addColumn} />
+
               {provided.placeholder}
+              <ColumnInput addColumn={addColumn} />
             </div>
           )}
         </Droppable>
