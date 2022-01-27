@@ -1,7 +1,7 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-const Task = ({ index, task }) => {
+const Task = ({ index, task, open, setOpen }) => {
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import "./App.css";
+import "./App.scss";
 import Column from "./components/Column";
 import Navbar from "./components/Navbar";
 import initialData from "./data";
+import { v4 as uuidv4 } from "uuid";
+import Input from "./components/Input";
 
 const App = () => {
   const [data, setData] = useState(initialData);
-
   const [input, setInput] = useState("");
+  const [open, setOpen] = useState(false);
 
   const add = (text, columnId) => {
-    const newCardId = "task-5";
+    const newCardId = uuidv4();
     const newCard = {
       id: newCardId,
       content: text,
@@ -35,7 +37,7 @@ const App = () => {
   };
 
   const addColumn = (newTitle) => {
-    const newId = "column-3";
+    const newId = uuidv4();
 
     const newColumn = {
       id: newId,
@@ -94,11 +96,6 @@ const App = () => {
     };
     console.log(newState);
     setData(newState);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    deleteTask("task-1", "column-1");
   };
 
   const onDragEnd = (result) => {
@@ -176,6 +173,11 @@ const App = () => {
     };
     setData(newData);
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   addColumn(input);
+  //   setOpen(false);
+  // };
   return (
     <div className="container">
       <Navbar />
@@ -202,22 +204,30 @@ const App = () => {
                     column={column}
                     tasks={tasks}
                     index={index}
+                    add={add}
+                    updateTitle={updateTitle}
                   />
                 );
               })}
+              {/* {open && (
+                <form onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                  <button>Add</button>
+                </form>
+              )}
+              {!open && (
+                <button onClick={() => setOpen(true)}>Add a new list</button>
+              )} */}
+              <Input addColumn={addColumn} />
               {provided.placeholder}
             </div>
           )}
         </Droppable>
       </DragDropContext>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button>Add</button>
-      </form>
     </div>
   );
 };

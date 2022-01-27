@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   color: black;
+  caret-color: transparent;
   font-size: large;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans,
     Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
@@ -12,7 +13,7 @@
   height: 100vh;
   background-image: url("../public/venice.jpg");
   background-size: cover;
-  z-index: -1;
+  overflow-y: "auto";
 }
 .navbar {
   min-height: 2rem;
@@ -21,39 +22,37 @@
   justify-content: space-between;
   align-items: center;
   background-color: transparent;
+  a {
+    font-size: 1rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding: 0 2rem 0 2rem;
+  }
+  button {
+    background: lightcoral;
+    border: none;
+    text-align: center;
+    padding: 0.2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+  }
 }
-.navbar a {
-  font-size: 1rem;
-  text-decoration: none;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  padding: 0 2rem 0 2rem;
-}
-.navbar a img {
-  width: 50px;
-  height: 50px;
-}
-.navbar a button {
-  background: lightcoral;
-  border: none;
-  text-align: center;
-  padding: 0.2rem;
-  border-radius: 12px;
-  font-size: 1rem;
-}
-.column-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(5rem, 10rem));
 
-  min-height: 10%vh;
+.column-container {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .column {
+  display: inline;
   background-color: #ebecf0;
-  margin: 1rem;
-  width: 8rem;
   border-radius: 5px;
   padding: 1rem;
+  max-width: 15rem;
+  min-width: 10rem;
+  height: fit-content;
 }
 .title {
   font-size: 1.25rem;
@@ -91,4 +90,31 @@
   margin-top: 5px;
   border: none;
   cursor: pointer;
+}
+button {
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  max-width: 15rem;
+  min-width: 10rem;
+  opacity: 0.5;
+}
+button:hover {
+  background: black;
+  color: lightblue;
+  cursor: pointer;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 15rem;
+  min-width: 10rem;
+  input {
+    border: none;
+    border-radius: 5px;
+    :focus {
+      border: none;
+    }
+  }
 }
