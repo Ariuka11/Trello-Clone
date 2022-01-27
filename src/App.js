@@ -72,31 +72,31 @@ const App = () => {
   };
 
   // Removing task from the column
-  const deleteTask = (taskId, columnId) => {
-    const newData = Object.keys(data.tasks).reduce((acc, key) => {
-      if (key !== taskId) {
-        acc[key] = data.tasks[key];
-      }
-      return acc;
-    }, {});
-    const newArray = data.columns[columnId].taskIds.filter(
-      (id) => id !== taskId
-    );
+  // const deleteTask = (taskId, columnId) => {
+  //   const newData = Object.keys(data.tasks).reduce((acc, key) => {
+  //     if (key !== taskId) {
+  //       acc[key] = data.tasks[key];
+  //     }
+  //     return acc;
+  //   }, {});
+  //   const newArray = data.columns[columnId].taskIds.filter(
+  //     (id) => id !== taskId
+  //   );
 
-    const newState = {
-      ...data,
-      tasks: newData,
-      columns: {
-        ...data.columns,
-        [columnId]: {
-          ...data.columns[columnId],
-          taskIds: newArray,
-        },
-      },
-    };
-    console.log(newState);
-    setData(newState);
-  };
+  //   const newState = {
+  //     ...data,
+  //     tasks: newData,
+  //     columns: {
+  //       ...data.columns,
+  //       [columnId]: {
+  //         ...data.columns[columnId],
+  //         taskIds: newArray,
+  //       },
+  //     },
+  //   };
+  //   console.log(newState);
+  //   setData(newState);
+  // };
 
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
