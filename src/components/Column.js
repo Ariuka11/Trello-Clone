@@ -4,7 +4,7 @@ import Task from "./Task";
 import TaskInput from "./TaskInput";
 import TitleInput from "./TitleInput";
 
-const Column = ({ column, tasks, index, addTask, updateTitle }) => {
+const Column = ({ column, tasks, index, addTask, updateTitle, deleteTask }) => {
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
@@ -27,7 +27,13 @@ const Column = ({ column, tasks, index, addTask, updateTitle }) => {
                 ref={provided.innerRef}
               >
                 {tasks.map((task, index) => (
-                  <Task key={task.id} task={task} index={index} />
+                  <Task
+                    key={task.id}
+                    task={task}
+                    index={index}
+                    deleteTask={deleteTask}
+                    columnId={column.id}
+                  />
                 ))}
                 {provided.placeholder}
                 <TaskInput column={column} addTask={addTask} />

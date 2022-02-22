@@ -44,6 +44,8 @@
           padding: 0.5rem;
           border-radius: 5px;
           width: 100%;
+          display: flex;
+          justify-content: space-between;
           background: transparentize($color: #558cb1, $amount: 0.5);
           &:hover {
             transform: scale(1.1);

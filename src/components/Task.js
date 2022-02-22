@@ -1,7 +1,11 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
-const Task = ({ index, task }) => {
+const Task = ({ index, task, deleteTask, columnId }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    deleteTask(task.id, columnId);
+  };
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -11,7 +15,8 @@ const Task = ({ index, task }) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          {task.content}
+          <div>{task.content}</div>
+          <span onClick={handleClick}>X</span>
         </div>
       )}
     </Draggable>
