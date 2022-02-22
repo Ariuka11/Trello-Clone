@@ -28,10 +28,9 @@
     gap: 2rem;
     .column {
       padding: 1rem;
-      border-radius: 5px;
+      border-radius: 10px;
       background: transparentize($color: #a04d4d, $amount: 0.5);
-      min-width: 10rem;
-      max-width: 15rem;
+      width: clamp(12.5rem, 30vw, 15.625rem);
       .title {
         padding: 0.25rem;
         font-weight: 500;
@@ -81,10 +80,10 @@
           }
         }
         .taskButton {
-          font-size: 12px;
+          font-size: 1rem;
           font-weight: 500;
           width: 100%;
-          padding: 0.25rem;
+          padding: 0.35rem;
           border: none;
           border-radius: 5px;
           cursor: pointer;
