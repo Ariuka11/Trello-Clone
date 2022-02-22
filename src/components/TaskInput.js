@@ -16,13 +16,17 @@ const TaskInput = ({ addTask, column }) => {
     <div className="taskInput">
       {isVisible && (
         <form onSubmit={handleSubmit} ref={ref}>
-          <input value={input} onChange={(e) => setInput(e.target.value)} />
-          <button>Add</button>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="...anything"
+          />
+          <button>+</button>
         </form>
       )}
       {!isVisible && (
         <button className="taskButton" onClick={() => setIsVisible(!isVisible)}>
-          + Add task
+          + Add Task
         </button>
       )}
     </div>
