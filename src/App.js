@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import initialData from "./data";
 import { v4 as uuidv4 } from "uuid";
 import ColumnInput from "./components/ColumnInput";
+import ApiImage from "./components/ApiImage";
 
 const App = () => {
   const [data, setData] = useState(initialData);
@@ -177,9 +178,11 @@ const App = () => {
     setData(newData);
     return;
   };
-
+  const divImage = {
+    backgroundImage: "url(/venice.jpg)",
+  };
   return (
-    <div className="container">
+    <div className="container" style={divImage}>
       <Navbar />
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable
@@ -213,6 +216,7 @@ const App = () => {
 
               {provided.placeholder}
               <ColumnInput addColumn={addColumn} />
+              <ApiImage />
             </div>
           )}
         </Droppable>

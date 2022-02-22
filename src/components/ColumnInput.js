@@ -24,7 +24,7 @@ const Input = ({ addColumn }) => {
           className="columnButton"
           onClick={() => setIsVisible(!isVisible)}
         >
-          + Add another list
+          + Create New List
         </button>
       )}
     </div>
