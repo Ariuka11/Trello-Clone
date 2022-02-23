@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./App.scss";
 import Column from "./components/Column";
@@ -6,10 +6,38 @@ import Navbar from "./components/Navbar";
 import initialData from "./data";
 import { v4 as uuidv4 } from "uuid";
 import ColumnInput from "./components/ColumnInput";
-import ApiImage from "./components/ApiImage";
+import axios from "axios";
 
 const App = () => {
   const [data, setData] = useState(initialData);
+  const [img, setImg] = useState([]);
+  const [input, setInput] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchImg = async () => {
+      const res = await axios.get(
+        `https://api.unsplash.com/search/photos?page=3&query=${input}&client_id=${process.env.REACT_APP_IMG_API}&orientation=landscape`
+      );
+      console.log(res.data.results);
+      setImg(res.data.results);
+    };
+    fetchImg();
+    console.log("Rendered");
+  }, [input]);
+
+  const [divImage, setDivImage] = useState({
+    backgroundImage: "url(/venice.jpg)",
+  });
+
+  const handleClick = (image) => {
+    setDivImage({
+      backgroundImage: `url(${image})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+    });
+    console.log(image);
+  };
 
   // Adding new task
   const addTask = (text, columnId) => {
@@ -95,7 +123,6 @@ const App = () => {
         },
       },
     };
-    console.log(newState);
     setData(newState);
   };
 
@@ -178,9 +205,27 @@ const App = () => {
     setData(newData);
     return;
   };
-  const divImage = {
-    backgroundImage: "url(/venice.jpg)",
-  };
+
+  const reff = useRef();
+
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (open && reff.current && !reff.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("click", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [open]);
+
+  console.log("open", open);
   return (
     <div className="container" style={divImage}>
       <Navbar />
@@ -216,7 +261,27 @@ const App = () => {
 
               {provided.placeholder}
               <ColumnInput addColumn={addColumn} />
-              <ApiImage />
+              <button onClick={() => setOpen((prev) => !prev)}>
+                Change background
+              </button>
+              {open && (
+                <div className="photos" ref={reff}>
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                  <div className="img-container">
+                    {img.map((i) => (
+                      <img
+                        src={i.urls.small}
+                        key={i.id}
+                        onClick={() => handleClick(i.urls.full)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </Droppable>
