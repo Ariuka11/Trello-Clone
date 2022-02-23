@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shizuru&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,14 +15,21 @@
   background-size: cover;
 
   .navbar {
-    font-family: Poppins;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1rem;
     background: rgba(79, 79, 79, 0.5);
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(40px);
     color: white;
+    .logo {
+      font-family: Shizuru, cursive;
+      font-size: 1.5rem;
+    }
+    .userName {
+      font-weight: 200;
+    }
   }
   .column-container {
     color: white;
@@ -51,6 +59,8 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
         .task {
           font-weight: 400;
           font-size: small;
@@ -63,15 +73,17 @@
           background: rgba(79, 79, 79, 0.8);
           box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
           backdrop-filter: blur(40px);
-
           border-radius: 5px;
           &:hover {
-            transform: scale(1.1);
-            transition: all 0.1s ease-in;
+            color: #f2994a;
+            background: transparentize($color: white, $amount: 0.1);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
           }
         }
       }
       .taskInput {
+        width: 100%;
         form {
           display: flex;
           padding-top: 0.25rem;
@@ -92,11 +104,11 @@
             background: rgba(242, 153, 74, 1);
             color: white;
             flex: 1;
-
             &:hover {
-              background: transparentize($color: #5566b1, $amount: 0.5);
-              transform: scale(1.1);
-              transition: all 0.1s ease-in;
+              color: #f2994a;
+              background: transparentize($color: white, $amount: 0.1);
+              transform: scale(1.05);
+              transition: all 0.3s ease;
             }
           }
         }
@@ -113,11 +125,11 @@
           backdrop-filter: blur(40px);
           border-radius: 5px;
           color: white;
-          margin-left: 0.25rem;
           &:hover {
-            background: transparentize($color: #5566b1, $amount: 0.5);
-            transform: scale(1.1);
-            transition: all 0.1s ease-in;
+            color: #f2994a;
+            background: transparentize($color: white, $amount: 0.1);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
           }
         }
       }
@@ -151,9 +163,10 @@
         color: white;
 
         &:hover {
-          background: transparentize($color: #5566b1, $amount: 0.5);
-          transform: scale(1.1);
-          transition: all 0.1s ease-in;
+          color: #f2994a;
+          background: transparentize($color: white, $amount: 0.1);
+          transform: scale(1.05);
+          transition: all 0.3s ease;
         }
       }
     }
@@ -172,9 +185,10 @@
 
       margin-left: 0.25rem;
       &:hover {
-        background: transparentize($color: #5566b1, $amount: 0.5);
-        transform: scale(1.1);
-        transition: all 0.1s ease-in;
+        color: #f2994a;
+        background: transparentize($color: white, $amount: 0.1);
+        transform: scale(1.05);
+        transition: all 0.3s ease;
       }
       @media only screen and (max-width: 600px) {
         margin: auto;
@@ -194,7 +208,7 @@
         border-radius: 5px;
         width: 105%;
         &:focus {
-          border: 2px gold solid;
+          border: 2px red solid;
         }
       }
     }
@@ -237,6 +251,7 @@
     width: 100%;
   }
 }
+
 button {
   width: clamp(10rem, 20vw, 12rem);
   padding: 0.8rem;
@@ -250,8 +265,9 @@ button {
   color: white;
   font-weight: 500;
   &:hover {
-    background: transparentize($color: #5566b1, $amount: 0.5);
-    transform: scale(1.1);
-    transition: all 0.1s ease-in;
+    color: #f2994a;
+    background: transparentize($color: white, $amount: 0.1);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
   }
 }

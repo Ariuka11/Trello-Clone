@@ -14,16 +14,18 @@ const App = () => {
   const [input, setInput] = useState([]);
   const [open, setOpen] = useState(false);
 
+  // Fetching Image from Unsplash API
   useEffect(() => {
     const fetchImg = async () => {
       const res = await axios.get(
-        `https://api.unsplash.com/search/photos?page=3&query=${input}&client_id=${process.env.REACT_APP_IMG_API}&orientation=landscape`
+        `https://api.unsplash.com/search/photos?page=3&query=${
+          input.length > 0 ? input : "office"
+        }&client_id=${process.env.REACT_APP_IMG_API}&orientation=landscape`
       );
       console.log(res.data.results);
       setImg(res.data.results);
     };
     fetchImg();
-    console.log("Rendered");
   }, [input]);
 
   const [divImage, setDivImage] = useState({
@@ -63,6 +65,7 @@ const App = () => {
     };
     setData(newState);
   };
+
   // Adding new Column
   const addColumn = (newTitle) => {
     const newId = uuidv4();
@@ -84,6 +87,7 @@ const App = () => {
     console.log(newState);
     setData(newState);
   };
+
   //Updating Column Title
   const updateTitle = (newTitle, columnId) => {
     const newState = {
@@ -108,6 +112,7 @@ const App = () => {
       }
       return acc;
     }, {});
+
     const newArray = data.columns[columnId].taskIds.filter(
       (id) => id !== taskId
     );
@@ -126,6 +131,24 @@ const App = () => {
     setData(newState);
   };
 
+  const deleteColumn = (columnId) => {
+    const newData = Object.keys(data.columns).reduce((acc, key) => {
+      if (key !== columnId) {
+        acc[key] = data.columns[key];
+      }
+      return acc;
+    }, {});
+    const newArray = data.columnOrder.filter((id) => id !== columnId);
+    const newState = {
+      ...data,
+      columns: newData,
+      columnOrder: newArray,
+    };
+    setData(newState);
+  };
+
+  // Draggin function
+
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
 
@@ -140,7 +163,7 @@ const App = () => {
     }
     // Changing Column Order
     if (type === "column") {
-      const newColumnOrder = Array.from(data.columnOrder);
+      const newColumnOrder = Array.from(data?.columnOrder);
       newColumnOrder.splice(source.index, 1);
       newColumnOrder.splice(destination.index, 0, draggableId);
 
@@ -179,7 +202,6 @@ const App = () => {
     }
 
     // Moving task to another column
-
     const homeTaskIds = Array.from(home.taskIds);
     homeTaskIds.splice(source.index, 1);
     const newHome = {
@@ -206,12 +228,11 @@ const App = () => {
     return;
   };
 
+  // Detecting Click outside the React component
   const reff = useRef();
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
-      // If the menu is open and the clicked target is not within the menu,
-      // then close the menu
       if (open && reff.current && !reff.current.contains(e.target)) {
         setOpen(false);
       }
@@ -220,12 +241,10 @@ const App = () => {
     document.addEventListener("click", checkIfClickedOutside);
 
     return () => {
-      // Cleanup the event listener
       document.removeEventListener("click", checkIfClickedOutside);
     };
   }, [open]);
 
-  console.log("open", open);
   return (
     <div className="container" style={divImage}>
       <Navbar />
@@ -241,23 +260,25 @@ const App = () => {
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {data.columnOrder.map((columnId, index) => {
-                const column = data.columns[columnId];
-                const tasks = column.taskIds.map(
-                  (taskId) => data.tasks[taskId]
-                );
-                return (
-                  <Column
-                    key={column.id}
-                    column={column}
-                    tasks={tasks}
-                    index={index}
-                    updateTitle={updateTitle}
-                    addTask={addTask}
-                    deleteTask={deleteTask}
-                  />
-                );
-              })}
+              {data &&
+                data.columnOrder.map((columnId, index) => {
+                  const column = data.columns[columnId];
+                  const tasks = column.taskIds.map(
+                    (taskId) => data.tasks[taskId]
+                  );
+                  return (
+                    <Column
+                      key={column.id}
+                      column={column}
+                      tasks={tasks}
+                      index={index}
+                      updateTitle={updateTitle}
+                      addTask={addTask}
+                      deleteTask={deleteTask}
+                      deleteColumn={deleteColumn}
+                    />
+                  );
+                })}
 
               {provided.placeholder}
               <ColumnInput addColumn={addColumn} />
@@ -276,6 +297,7 @@ const App = () => {
                       <img
                         src={i.urls.small}
                         key={i.id}
+                        alt={i.alt_description}
                         onClick={() => handleClick(i.urls.full)}
                       />
                     ))}

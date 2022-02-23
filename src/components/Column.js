@@ -4,7 +4,19 @@ import Task from "./Task";
 import TaskInput from "./TaskInput";
 import TitleInput from "./TitleInput";
 
-const Column = ({ column, tasks, index, addTask, updateTitle, deleteTask }) => {
+const Column = ({
+  column,
+  tasks,
+  index,
+  addTask,
+  updateTitle,
+  deleteTask,
+  deleteColumn,
+}) => {
+  console.log("Column", column.id);
+  const handleClick = (id) => {
+    deleteColumn(id);
+  };
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided) => (
@@ -14,6 +26,7 @@ const Column = ({ column, tasks, index, addTask, updateTitle, deleteTask }) => {
           ref={provided.innerRef}
           {...provided.dragHandleProps}
         >
+          <span onClick={() => handleClick(column.id)}>X</span>
           <TitleInput
             updateTitle={updateTitle}
             column={column}

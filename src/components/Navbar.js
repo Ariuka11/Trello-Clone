@@ -3,9 +3,9 @@ import React from "react";
 const Navbar = () => {
   return (
     <div className="navbar">
-      <h3>Trello Clone</h3>
+      <h3 className="logo">Mrello</h3>
 
-      <h3>Ariunbold Oyungerel</h3>
+      <h4 className="userName">Ariunbold Oyungerel</h4>
     </div>
   );
 };
