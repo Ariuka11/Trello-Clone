@@ -290,6 +290,7 @@ const App = () => {
                   <input
                     type="text"
                     value={input}
+                    placeholder="Search Image for background"
                     onChange={(e) => setInput(e.target.value)}
                   />
                   <div className="img-container">

@@ -9,7 +9,7 @@
 .container {
   font-family: Poppins, sans-serif;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   background: #dd8bc8;
   background-repeat: no-repeat;
   background-size: cover;
@@ -264,6 +264,9 @@ button {
   font-size: 0.8rem;
   color: white;
   font-weight: 500;
+  @media only screen and (max-width: 600px) {
+    margin: auto;
+  }
   &:hover {
     color: #f2994a;
     background: transparentize($color: white, $amount: 0.1);
